@@ -24,6 +24,7 @@
 - textlint-rule-ja-no-abusage
 - textlint-rule-prefer-tari-tari
 - textlint-rule-preset-ai-writing
+- textlint-rule-ja-space-around-phrase
 
 ## パッケージ管理
 
@@ -46,28 +47,13 @@ npm install
 npm install --save-dev textlint-config-rewse
 ```
 
-`.textlintrc.js`で使用:
+`.textlintrc.json.sample`をコピーして使用:
 
-```javascript
-// 基本的な使い方
-module.exports = require('textlint-config-rewse');
-
-// カスタマイズする場合
-const config = require('textlint-config-rewse');
-
-module.exports = {
-  ...config,
-  rules: {
-    ...config.rules,
-    "preset-ja-technical-writing": {
-      ...config.rules["preset-ja-technical-writing"],
-      "sentence-length": {
-        "max": 150
-      }
-    }
-  }
-};
+```bash
+cp node_modules/textlint-config-rewse/.textlintrc.json.sample .textlintrc.json
 ```
+
+必要に応じて設定を調整する。
 
 textlintの実行:
 
@@ -80,13 +66,13 @@ npx textlint <file>
 カスタムルールのテスト:
 
 ```bash
-# ja-space-around-half-width-with-spacesルールのテスト
-npx textlint --config .textlintrc.test.js rules/ja-space-around-half-width-with-spaces.test.md
+# テストファイルのチェック
+npx textlint --config test/.textlintrc.json test/test.md
 ```
 
 テストファイルの構成:
-- `.textlintrc.test.js`: テスト用のtextlint設定ファイル
-- `rules/ja-space-around-half-width-with-spaces.test.md`: テストケースを含むMarkdownファイル
+- `test/.textlintrc.json`: テスト用のtextlint設定ファイル
+- `test/test.md`: テストケースを含むMarkdownファイル
 
 テストケースには以下が含まれる:
 - OKケース: ルールに準拠した正しい例
@@ -97,4 +83,4 @@ npx textlint --config .textlintrc.test.js rules/ja-space-around-half-width-with-
 - モジュールタイプ: CommonJS (`type: "commonjs"`)
 - エントリーポイント: `index.js`
 - 設定のエクスポート: `module.exports`形式
-- **重要**: textlintは現在、`.textlintrc.json`での`extends`による共有可能な設定の継承をサポートしていない（[textlint#210](https://github.com/textlint/textlint/issues/210)）。そのため、ユーザーは`.textlintrc.js`で`require()`を使用する必要がある
+- サンプルファイル: `.textlintrc.json.sample`を提供し、ユーザーが直接コピーして使用できるようにする

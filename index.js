@@ -17,7 +17,7 @@ module.exports = {
         min_interval: 1
       },
       'sentence-length': {
-        max: 100
+        max: 200
       },
       'no-dropping-the-ra': true,
       'no-mix-dearu-desumasu': true,
@@ -110,9 +110,6 @@ module.exports = {
       'no-ai-colon-continuation': true,
       'ai-tech-writing-guideline': true
     },
-    'ja-space-around-half-width-with-spaces': true
-  },
-  rulesConfig: {
-    'ja-space-around-half-width-with-spaces': require('./rules/ja-space-around-half-width-with-spaces')
+    'ja-space-around-phrase': true
   }
 };

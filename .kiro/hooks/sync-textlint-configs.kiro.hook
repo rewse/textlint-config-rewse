@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "name": "Sync textlint configs",
+  "description": "index.jsまたは.textlintrc.json.sampleが編集されたときに、両ファイルの設定が同期されているか確認し、必要に応じて同期を提案する",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "index.js",
+      ".textlintrc.json.sample"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "index.jsと.textlintrc.json.sampleのいずれかが編集されたよ。両ファイルの設定内容を比較して、同期が取れているか確認してね。もし差異があれば、適切に同期するための変更を提案してね。特に以下の点に注意してね：\n1. index.jsはCommonJS形式（module.exports）で、.textlintrc.json.sampleはJSON形式\n2. ルールの設定値が一致しているか\n3. フィルタールールの設定が一致しているか\n4. 新しいルールが追加されていないか\n5. ルールが削除されていないか"
+  }
+}

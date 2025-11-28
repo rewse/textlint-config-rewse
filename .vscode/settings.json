@@ -1,5 +1,5 @@
 {
   "files.associations": {
-    ".textlintrc.js.sample": "javascript"
+    ".textlintrc.json.sample": "json"
   }
 }

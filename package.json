@@ -1,10 +1,11 @@
 {
   "name": "textlint-config-rewse",
-  "version": "1.1.2",
-  "description": "Shareable textlint config for Japanese documents",
+  "version": "1.2.0",
+  "description": "rewse's shareable textlint config for Japanese technical documents with comprehensive rules",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "textlint --config test/.textlintrc.json test/test.md"
   },
   "keywords": [
     "textlint",
@@ -12,20 +13,33 @@
     "japanese",
     "ja"
   ],
-  "author": "",
+  "author": "Tats Shibata <https://github.com/rewse>",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rewse/textlint-config-rewse.git"
   },
-  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rewse/textlint-config-rewse/issues"
+  },
+  "homepage": "https://github.com/rewse/textlint-config-rewse#readme",
+  "files": [
+    "index.js",
+    ".textlintrc.json.sample",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "peerDependencies": {
+    "textlint": "^15.0.0"
+  },
   "dependencies": {
-    "textlint": "^15.4.0",
     "textlint-filter-rule-allowlist": "^4.0.0",
     "textlint-filter-rule-comments": "^1.2.2",
-    "textlint-rule-helper": "^2.5.0",
     "textlint-rule-ja-no-abusage": "^3.0.0",
-    "textlint-rule-ja-space-around-half-width-with-spaces": "file:./rules/ja-space-around-half-width-with-spaces",
+    "textlint-rule-ja-space-around-phrase": "^1.0.0",
     "textlint-rule-prefer-tari-tari": "^1.0.3",
     "textlint-rule-preset-ai-writing": "^1.1.0",
     "textlint-rule-preset-ja-technical-writing": "^12.0.2",
