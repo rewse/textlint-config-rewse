@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "name": "Exec npm-check-updates",
+  "description": "npx npm-check-updatesを実行して、依存関係の更新可能なパッケージを確認する",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "npx npm-check-updatesを実行して、依存関係の更新可能なパッケージを確認して"
+  },
+  "workspaceFolderName": "textlint-config-rewse",
+  "shortName": "session-npm-check-updates"
+}
