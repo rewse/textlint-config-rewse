@@ -2,6 +2,7 @@
  * @fileoverview Rule to check spacing between full-width and half-width strings
  * - No space between full-width and half-width strings without spaces
  * - Space required between full-width and half-width strings with spaces
+ * - Space required after half-width colon (:)
  */
 
 const { RuleHelper } = require('textlint-rule-helper');
@@ -87,6 +88,43 @@ function reporter(context) {
   const helper = new RuleHelper(context);
 
   return {
+    [Syntax.Link](node) {
+      // Check spacing around links (URLs)
+      // Links should always have spaces around them when adjacent to full-width characters
+      const parent = node.parent;
+      if (!parent) {
+        return;
+      }
+
+      const parentText = getSource(parent);
+      const linkStart = node.range[0] - parent.range[0];
+      const linkEnd = node.range[1] - parent.range[0];
+
+      // Check before the link
+      const beforeIndex = linkStart - 1;
+      if (beforeIndex >= 0) {
+        const beforeChar = parentText[beforeIndex];
+        if (isFullWidth(beforeChar) && parentText[linkStart] !== ' ') {
+          report(parent, new RuleError(
+            `全角文字とURLの間にはスペースを入れる必要があります`,
+            { index: linkStart }
+          ));
+        }
+      }
+
+      // Check after the link
+      const afterIndex = linkEnd;
+      if (afterIndex < parentText.length) {
+        const afterChar = parentText[afterIndex];
+        if (isFullWidth(afterChar) && parentText[linkEnd - 1] !== ' ') {
+          report(parent, new RuleError(
+            `URLと全角文字の間にはスペースを入れる必要があります`,
+            { index: afterIndex }
+          ));
+        }
+      }
+    },
+
     [Syntax.Str](node) {
       // Skip if node should be ignored
       if (helper.isChildNode(node, [Syntax.Link, Syntax.Image, Syntax.BlockQuote, Syntax.Code, Syntax.Header])) {
@@ -94,6 +132,17 @@ function reporter(context) {
       }
 
       const text = getSource(node);
+      
+      // Check for space after half-width colon
+      for (let i = 0; i < text.length - 1; i++) {
+        if (text[i] === ':' && text[i + 1] !== ' ' && text[i + 1] !== '\n') {
+          report(node, new RuleError(
+            `半角コロン (:) の直後にはスペースを入れる必要があります`,
+            { index: i + 1 }
+          ));
+        }
+      }
+      
       const sequences = extractHalfWidthSequences(text, node.range[0]);
 
       sequences.forEach(seq => {
@@ -115,14 +164,18 @@ function reporter(context) {
             // Check if there's a space between full-width char and half-width sequence
             const hasSpaceBefore = (beforeIndex + 1 < text.length && text[beforeIndex + 1] === ' ');
             
+            // Exception: Allow space after colon
+            const beforeBeforeIndex = beforeIndex - 1;
+            const isAfterColon = beforeBeforeIndex >= 0 && text[beforeBeforeIndex] === ':';
+            
             if (hasSpaces && !hasSpaceBefore) {
               // Should have space but doesn't
               report(node, new RuleError(
                 `全角文字とスペースを含む半角文字列の間にはスペースを入れる必要があります: "${beforeChar}${seq.text.substring(0, 10)}..."`,
                 { index: beforeIndex + 1 }
               ));
-            } else if (!hasSpaces && hasSpaceBefore) {
-              // Should not have space but does
+            } else if (!hasSpaces && hasSpaceBefore && !isAfterColon) {
+              // Should not have space but does (except after colon)
               report(node, new RuleError(
                 `全角文字とスペースを含まない半角文字列の間にはスペースを入れないでください: "${beforeChar} ${seq.text}"`,
                 { index: beforeIndex + 1 }
@@ -140,14 +193,17 @@ function reporter(context) {
             // Check if there's a space between half-width sequence and full-width char
             const hasSpaceAfter = (afterIndex > 0 && text[afterIndex - 1] === ' ');
             
+            // Exception: Allow space after colon
+            const endsWithColon = seq.text.endsWith(':');
+            
             if (hasSpaces && !hasSpaceAfter) {
               // Should have space but doesn't
               report(node, new RuleError(
                 `全角文字とスペースを含む半角文字列の間にはスペースを入れる必要があります: "...${seq.text.substring(seq.text.length - 10)}${afterChar}"`,
                 { index: afterIndex }
               ));
-            } else if (!hasSpaces && hasSpaceAfter) {
-              // Should not have space but does
+            } else if (!hasSpaces && hasSpaceAfter && !endsWithColon) {
+              // Should not have space but does (except after colon)
               report(node, new RuleError(
                 `全角文字とスペースを含まない半角文字列の間にはスペースを入れないでください: "${seq.text} ${afterChar}"`,
                 { index: afterIndex - 1 }
