@@ -1,0 +1,34 @@
+{
+  "name": "textlint-config-rewse",
+  "version": "1.0.0",
+  "description": "Shareable textlint config for Japanese documents",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "textlint",
+    "textlint-config",
+    "japanese",
+    "ja"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rewse/textlint-config-rewse.git"
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "textlint": "^15.4.0",
+    "textlint-filter-rule-allowlist": "^4.0.0",
+    "textlint-filter-rule-comments": "^1.2.2",
+    "textlint-rule-ja-no-abusage": "^3.0.0",
+    "textlint-rule-prefer-tari-tari": "^1.0.3",
+    "textlint-rule-preset-ai-writing": "^1.1.0",
+    "textlint-rule-preset-ja-spacing": "^2.4.3",
+    "textlint-rule-preset-ja-technical-writing": "^12.0.2",
+    "textlint-rule-preset-japanese": "^10.0.4",
+    "textlint-rule-preset-jtf-style": "^3.0.3"
+  }
+}

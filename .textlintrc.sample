@@ -1,0 +1,33 @@
+{
+  "extends": ["textlint-config-rewse"],
+  "rules": {
+    "preset-ja-technical-writing": {
+      "sentence-length": {
+        "max": 100
+      },
+      "max-kanji-continuous-len": {
+        "max": 6
+      },
+      "no-exclamation-question-mark": {
+        "allowFullWidthExclamation": false,
+        "allowFullWidthQuestion": false
+      }
+    },
+    "preset-jtf-style": {
+      "1.1.3.箇条書き": false,
+      "4.3.1.丸かっこ（）": false
+    },
+    "preset-ja-spacing": {
+      "ja-space-between-half-and-full-width": {
+        "space": "never"
+      }
+    }
+  },
+  "filters": {
+    "allowlist": {
+      "allow": [
+        "/特定の許可したい単語やパターン/"
+      ]
+    }
+  }
+}
