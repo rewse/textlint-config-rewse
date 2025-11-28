@@ -18,6 +18,25 @@
       "4.3.1.丸かっこ（）": false
     },
     "preset-ja-spacing": {
+      "ja-space-around-code": {
+        "before": true,
+        "after": true
+      }
+    },
+    "ja-space-around-half-width-with-spaces": true
+  },
+  "rulesConfig": {
+    "ja-space-around-half-width-with-spaces": "textlint-rule-ja-space-around-half-width-with-spaces"
+  },
+  "comments": {
+    "ja-space-around-half-width-with-spaces": "全角文字と半角文字列の間のスペースを、半角文字列の内容に応じて制御します。スペースを含まない半角文字列（API、URLなど）の場合はスペースなし、スペースを含む半角文字列（Hello World、New Yorkなど）の場合はスペースありとなります。"
+  },
+  "note": {
+    "ja-space-between-half-and-full-width": "このルールは ja-space-around-half-width-with-spaces によって置き換えられているため、デフォルトで無効化されています。"
+  },
+  "rules-override-example": {
+    "ja-space-around-half-width-with-spaces": false,
+    "preset-ja-spacing": {
       "ja-space-between-half-and-full-width": {
         "space": "never"
       }

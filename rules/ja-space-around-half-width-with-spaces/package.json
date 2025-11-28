@@ -1,0 +1,16 @@
+{
+  "name": "textlint-rule-ja-space-around-half-width-with-spaces",
+  "version": "1.0.0",
+  "description": "textlint rule to check spacing between full-width and half-width strings",
+  "main": "index.js",
+  "keywords": [
+    "textlint",
+    "textlint-rule"
+  ],
+  "peerDependencies": {
+    "textlint": "^15.0.0"
+  },
+  "dependencies": {
+    "textlint-rule-helper": "^2.3.1"
+  }
+}

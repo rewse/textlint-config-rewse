@@ -42,7 +42,7 @@ module.exports = {
       '2.2.1.ひらがなと漢字の使い分け': true,
       '2.2.2.算用数字と漢数字の使い分け': true,
       '2.2.3.一部の助数詞の表記': true,
-      '3.1.1.全角文字と半角文字の間': true,
+      '3.1.1.全角文字と半角文字の間': false,
       '3.1.2.全角文字どうし': true,
       '3.2.カタカナ語間のスペースの有無': true,
       '3.3.かっこ類と隣接する文字の間のスペースの有無': true,
@@ -100,9 +100,7 @@ module.exports = {
       'no-unmatched-pair': true
     },
     'preset-ja-spacing': {
-      'ja-space-between-half-and-full-width': {
-        space: 'never'
-      },
+      'ja-space-between-half-and-full-width': false,
       'ja-no-space-between-full-width': true,
       'ja-nakaguro-or-halfwidth-space-between-katakana': true,
       'ja-no-space-around-parentheses': true,
@@ -127,6 +125,10 @@ module.exports = {
       'no-ai-emphasis-patterns': true,
       'no-ai-colon-continuation': true,
       'ai-tech-writing-guideline': true
-    }
+    },
+    'ja-space-around-half-width-with-spaces': true
+  },
+  rulesConfig: {
+    'ja-space-around-half-width-with-spaces': require('./rules/ja-space-around-half-width-with-spaces')
   }
 };
