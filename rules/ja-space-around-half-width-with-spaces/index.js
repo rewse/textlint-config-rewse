@@ -2,7 +2,6 @@
  * @fileoverview Rule to check spacing between full-width and half-width strings
  * - No space between full-width and half-width strings without spaces
  * - Space required between full-width and half-width strings with spaces
- * - Space required after half-width colon (:)
  */
 
 const { RuleHelper } = require('textlint-rule-helper');
@@ -40,6 +39,17 @@ function isFullWidth(char) {
  */
 function isHalfWidth(char) {
   return !isFullWidth(char) && char !== ' ' && char !== '\t' && char !== '\n';
+}
+
+/**
+ * Check if a character is a symbol/punctuation
+ * @param {string} char - Character to check
+ * @returns {boolean} True if character is a symbol
+ */
+function isSymbol(char) {
+  // Common symbols and punctuation marks
+  const symbols = /[.,;:!?()[\]{}<>'"\-（）「」『』【】、。/;
+  return symbols.test(char);
 }
 
 /**
@@ -132,17 +142,6 @@ function reporter(context) {
       }
 
       const text = getSource(node);
-      
-      // Check for space after half-width colon
-      for (let i = 0; i < text.length - 1; i++) {
-        if (text[i] === ':' && text[i + 1] !== ' ' && text[i + 1] !== '\n') {
-          report(node, new RuleError(
-            `半角コロン (:) の直後にはスペースを入れる必要があります`,
-            { index: i + 1 }
-          ));
-        }
-      }
-      
       const sequences = extractHalfWidthSequences(text, node.range[0]);
 
       sequences.forEach(seq => {
@@ -164,9 +163,9 @@ function reporter(context) {
             // Check if there's a space between full-width char and half-width sequence
             const hasSpaceBefore = (beforeIndex + 1 < text.length && text[beforeIndex + 1] === ' ');
             
-            // Exception: Allow space after colon
+            // Exception: Allow space after symbols
             const beforeBeforeIndex = beforeIndex - 1;
-            const isAfterColon = beforeBeforeIndex >= 0 && text[beforeBeforeIndex] === ':';
+            const isAfterSymbol = beforeBeforeIndex >= 0 && isSymbol(text[beforeBeforeIndex]);
             
             if (hasSpaces && !hasSpaceBefore) {
               // Should have space but doesn't
@@ -174,8 +173,8 @@ function reporter(context) {
                 `全角文字とスペースを含む半角文字列の間にはスペースを入れる必要があります: "${beforeChar}${seq.text.substring(0, 10)}..."`,
                 { index: beforeIndex + 1 }
               ));
-            } else if (!hasSpaces && hasSpaceBefore && !isAfterColon) {
-              // Should not have space but does (except after colon)
+            } else if (!hasSpaces && hasSpaceBefore && !isAfterSymbol) {
+              // Should not have space but does (except after symbols)
               report(node, new RuleError(
                 `全角文字とスペースを含まない半角文字列の間にはスペースを入れないでください: "${beforeChar} ${seq.text}"`,
                 { index: beforeIndex + 1 }
@@ -193,8 +192,8 @@ function reporter(context) {
             // Check if there's a space between half-width sequence and full-width char
             const hasSpaceAfter = (afterIndex > 0 && text[afterIndex - 1] === ' ');
             
-            // Exception: Allow space after colon
-            const endsWithColon = seq.text.endsWith(':');
+            // Exception: Allow space after symbols
+            const endsWithSymbol = seq.text.length > 0 && isSymbol(seq.text[seq.text.length - 1]);
             
             if (hasSpaces && !hasSpaceAfter) {
               // Should have space but doesn't
@@ -202,8 +201,8 @@ function reporter(context) {
                 `全角文字とスペースを含む半角文字列の間にはスペースを入れる必要があります: "...${seq.text.substring(seq.text.length - 10)}${afterChar}"`,
                 { index: afterIndex }
               ));
-            } else if (!hasSpaces && hasSpaceAfter && !endsWithColon) {
-              // Should not have space but does (except after colon)
+            } else if (!hasSpaces && hasSpaceAfter && !endsWithSymbol) {
+              // Should not have space but does (except after symbols)
               report(node, new RuleError(
                 `全角文字とスペースを含まない半角文字列の間にはスペースを入れないでください: "${seq.text} ${afterChar}"`,
                 { index: afterIndex - 1 }
