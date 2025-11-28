@@ -48,7 +48,7 @@ function isHalfWidth(char) {
  */
 function isSymbol(char) {
   // Common symbols and punctuation marks
-  const symbols = /[.,;:!?()[\]{}<>'"\-（）「」『』【】、。/;
+  const symbols = /[.,;:!?()[\]{}<>'"\-（）「」『』【】、。]/;
   return symbols.test(char);
 }
 
