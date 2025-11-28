@@ -75,6 +75,23 @@ textlintの実行:
 npx textlint <file>
 ```
 
+### テスト
+
+カスタムルールのテスト:
+
+```bash
+# ja-space-around-half-width-with-spacesルールのテスト
+npx textlint --config .textlintrc.test.js rules/ja-space-around-half-width-with-spaces.test.md
+```
+
+テストファイルの構成:
+- `.textlintrc.test.js`: テスト用のtextlint設定ファイル
+- `rules/ja-space-around-half-width-with-spaces.test.md`: テストケースを含むMarkdownファイル
+
+テストケースには以下が含まれる:
+- OKケース: ルールに準拠した正しい例
+- NGケース: ルール違反でエラーが検出されるべき例
+
 ### 開発時の注意
 
 - モジュールタイプ: CommonJS (`type: "commonjs"`)
