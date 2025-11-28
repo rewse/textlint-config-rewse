@@ -45,13 +45,34 @@ npm install
 ```bash
 # 他のプロジェクトでインストール
 npm install --save-dev textlint-config-rewse
+```
 
-# .textlintrcで使用
-{
-  "extends": ["textlint-config-rewse"]
-}
+`.textlintrc.js`で使用:
 
-# textlintの実行
+```javascript
+// 基本的な使い方
+module.exports = require('textlint-config-rewse');
+
+// カスタマイズする場合
+const config = require('textlint-config-rewse');
+
+module.exports = {
+  ...config,
+  rules: {
+    ...config.rules,
+    "preset-ja-technical-writing": {
+      ...config.rules["preset-ja-technical-writing"],
+      "sentence-length": {
+        "max": 150
+      }
+    }
+  }
+};
+```
+
+textlintの実行:
+
+```bash
 npx textlint <file>
 ```
 
@@ -60,3 +81,4 @@ npx textlint <file>
 - モジュールタイプ: CommonJS (`type: "commonjs"`)
 - エントリーポイント: `index.js`
 - 設定のエクスポート: `module.exports`形式
+- **重要**: textlintは現在、`.textlintrc.json`での`extends`による共有可能な設定の継承をサポートしていない（[textlint#210](https://github.com/textlint/textlint/issues/210)）。そのため、ユーザーは`.textlintrc.js`で`require()`を使用する必要がある

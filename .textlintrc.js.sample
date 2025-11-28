@@ -1,0 +1,54 @@
+// このファイルは textlint-config-rewse を使用する際の参考となるサンプル設定ファイルです。
+// プロジェクトのルートディレクトリに .textlintrc.js として配置してください。
+
+// === 基本的な使い方 ===
+// そのまま設定を使用する場合
+module.exports = require('textlint-config-rewse');
+
+// === カスタマイズする場合 ===
+// 以下のようにスプレッド構文で設定を上書きできます
+/*
+const config = require('textlint-config-rewse');
+
+module.exports = {
+  ...config,
+  rules: {
+    ...config.rules,
+    // 個別のルールを上書き
+    "preset-ja-technical-writing": {
+      ...config.rules["preset-ja-technical-writing"],
+      "sentence-length": {
+        "max": 150  // 文の長さを150文字に変更
+      },
+      "max-kanji-continuous-len": {
+        "max": 8  // 連続する漢字の長さを8文字に変更
+      },
+      "ja-no-weak-phrase": false  // 弱い表現のチェックを無効化
+    },
+    "preset-jtf-style": {
+      ...config.rules["preset-jtf-style"],
+      "1.1.3.箇条書き": false,
+      "4.3.1.丸かっこ（）": false
+    },
+    "preset-ja-spacing": {
+      ...config.rules["preset-ja-spacing"],
+      "ja-space-around-code": {
+        "before": true,
+        "after": true
+      }
+    },
+    // カスタムルールの有効化
+    "ja-space-around-half-width-with-spaces": true
+  },
+  // フィルタールールの追加
+  filters: {
+    ...config.filters,
+    "allowlist": {
+      "allow": [
+        "特定の許可したい単語",
+        "/正規表現パターン/"
+      ]
+    }
+  }
+};
+*/

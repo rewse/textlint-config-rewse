@@ -4,18 +4,20 @@
 
 ```
 textlint-config-rewse/
-├── .kiro/              # Kiro設定とステアリングルール
-│   └── steering/       # AIアシスタント向けガイドライン
-├── .vscode/            # VSCode設定
-│   └── settings.json   # エディタ設定（ファイル関連付けなど）
-├── node_modules/       # npmパッケージ
-├── .gitignore          # Git除外設定
-├── .textlintrc.sample  # textlint設定のサンプルファイル
-├── index.js            # メインエントリーポイント（設定のエクスポート）
-├── LICENSE             # MITライセンス
-├── README.md           # プロジェクトドキュメント
-├── package.json        # パッケージメタデータと依存関係
-└── package-lock.json   # 依存関係のロックファイル
+├── .kiro/                  # Kiro設定とステアリングルール
+│   └── steering/           # AIアシスタント向けガイドライン
+├── .vscode/                # VSCode設定
+│   └── settings.json       # エディタ設定（ファイル関連付けなど）
+├── rules/                  # カスタムルール
+│   └── ja-space-around-half-width-with-spaces/  # カスタムルール実装
+├── node_modules/           # npmパッケージ
+├── .gitignore              # Git除外設定
+├── .textlintrc.js.sample   # textlint設定のサンプルファイル（JavaScript形式）
+├── index.js                # メインエントリーポイント（設定のエクスポート）
+├── LICENSE                 # MITライセンス
+├── README.md               # プロジェクトドキュメント
+├── package.json            # パッケージメタデータと依存関係
+└── package-lock.json       # 依存関係のロックファイル
 ```
 
 ## 主要ファイル
@@ -30,15 +32,17 @@ textlint設定オブジェクトをエクスポートするメインファイル
   - `comments`: コメントによる無効化
 - `rules`: 各ルールとプリセットの設定
 
-### .textlintrc.sample
+### .textlintrc.js.sample
 
-ユーザーがこの設定パッケージを使用する際の参考となるサンプル設定ファイル。
+ユーザーがこの設定パッケージを使用する際の参考となるサンプル設定ファイル（JavaScript形式）。
 
 内容:
-- 基本的な`extends`の使い方
+- 基本的な`require()`の使い方
 - よく調整される設定項目の例
-- ルールの個別カスタマイズ方法
+- スプレッド構文を使ったルールの個別カスタマイズ方法
 - フィルタールールの使用例
+
+> **注意**: textlintは現在、`.textlintrc.json`での`extends`による共有可能な設定の継承をサポートしていないため、`.textlintrc.js`を使用する必要がある。
 
 ### package.json
 
@@ -56,29 +60,35 @@ npmパッケージの定義ファイル。
 VSCode用のエディタ設定ファイル。
 
 設定内容:
-- `.textlintrc.sample`をJSONコメント付き（jsonc）として認識させる
+- `.textlintrc.js.sample`をJavaScriptとして認識させる
 
 ## 設計パターン
 
 ### 共有可能な設定パターン
 
-このパッケージは「共有可能な設定」として設計されており、他のプロジェクトから`extends`で参照される。
+このパッケージは「共有可能な設定」として設計されており、他のプロジェクトから`.textlintrc.js`で`require()`して使用される。
+
+> **重要**: textlintは現在、`.textlintrc.json`での`extends`による共有可能な設定の継承をサポートしていない（[textlint#210](https://github.com/textlint/textlint/issues/210)）。そのため、`.textlintrc.js`を使用する必要がある。
 
 ### 設定の上書き
 
-ユーザーは個別のルールを上書き可能:
+ユーザーはスプレッド構文を使って個別のルールを上書き可能:
 
-```json
-{
-  "extends": ["textlint-config-rewse"],
-  "rules": {
+```javascript
+const config = require('textlint-config-rewse');
+
+module.exports = {
+  ...config,
+  rules: {
+    ...config.rules,
     "preset-ja-technical-writing": {
+      ...config.rules["preset-ja-technical-writing"],
       "sentence-length": {
         "max": 150
       }
     }
   }
-}
+};
 ```
 
 ## 命名規則

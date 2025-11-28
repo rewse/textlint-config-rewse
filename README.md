@@ -21,13 +21,34 @@ npm install --save-dev git+https://github.com/rewse/textlint-config-rewse.git
 
 ## 使い方
 
-プロジェクトのルートに`.textlintrc`ファイルを作成し、以下のように設定します。
+プロジェクトのルートに`.textlintrc.js`ファイルを作成し、`require()`で設定を読み込みます。
 
-```json
-{
-  "extends": ["textlint-config-rewse"]
-}
+### 基本的な使い方
+
+```javascript
+module.exports = require('textlint-config-rewse');
 ```
+
+### カスタマイズする場合
+
+```javascript
+const config = require('textlint-config-rewse');
+
+module.exports = {
+  ...config,
+  rules: {
+    ...config.rules,
+    "preset-ja-technical-writing": {
+      ...config.rules["preset-ja-technical-writing"],
+      "sentence-length": {
+        "max": 150
+      }
+    }
+  }
+};
+```
+
+> **注意**: textlintは現在、`.textlintrc.json`での`extends`による共有可能な設定の継承をサポートしていません。必ず`.textlintrc.js`を使用してください。詳細は[textlint#210](https://github.com/textlint/textlint/issues/210)を参照してください。
 
 ### textlintの実行
 
@@ -107,18 +128,22 @@ AI生成文章の検出と改善提案
 
 個別のルールを上書きすることができます。
 
-```json
-{
-  "extends": ["textlint-config-rewse"],
-  "rules": {
+```javascript
+const config = require('textlint-config-rewse');
+
+module.exports = {
+  ...config,
+  rules: {
+    ...config.rules,
     "preset-ja-technical-writing": {
+      ...config.rules["preset-ja-technical-writing"],
       "sentence-length": {
         "max": 150
       },
       "ja-no-weak-phrase": false
     }
   }
-}
+};
 ```
 
 ## フィルタールール
@@ -139,10 +164,13 @@ AI生成文章の検出と改善提案
 
 特定の単語やパターンをチェック対象から除外できます。
 
-```json
-{
-  "extends": ["textlint-config-rewse"],
-  "filters": {
+```javascript
+const config = require('textlint-config-rewse');
+
+module.exports = {
+  ...config,
+  filters: {
+    ...config.filters,
     "allowlist": {
       "allow": [
         "特定の単語",
@@ -150,5 +178,5 @@ AI生成文章の検出と改善提案
       ]
     }
   }
-}
+};
 ```
