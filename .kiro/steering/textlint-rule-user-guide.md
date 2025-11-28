@@ -84,21 +84,6 @@ inclusion: always
 - **ja-unnatural-alphabet**: 入力ミスで発生する不自然なアルファベットをチェック
 - **no-unmatched-pair**: 対になっていない括弧をチェック
 
-### textlint-rule-preset-ja-spacing
-
-日本語周りにおけるスペースの有無を決定するルールプリセットです。
-
-#### 含まれるルール
-
-- **ja-space-between-half-and-full-width**: 半角文字と全角文字の間にスペースを入れるかどうか（デフォルト: 入れない）
-- **ja-no-space-between-full-width**: 全角文字同士の間にスペースを入れない
-- **ja-nakaguro-or-halfwidth-space-between-katakana**: カタカナ語間は中黒または半角スペースで区切る
-- **ja-no-space-around-parentheses**: かっこの外側、内側ともにスペースを入れない
-- **ja-space-after-exclamation**: 文末の感嘆符の後に全角スペースを挿入
-- **ja-space-after-question**: 文末の疑問符の後に全角スペースを挿入
-- **ja-space-around-code**: インラインコードの周りをスペースで囲むかどうか（デフォルト: 無効）
-- **ja-space-around-link**: リンクの周りをスペースで囲むかどうか（デフォルト: 無効）
-
 ### textlint-rule-ja-no-abusage
 
 よくある日本語の誤用をチェックするルールです。
@@ -233,7 +218,6 @@ Good Morningと挨拶する
 - [textlint-rule-preset-japanese](https://github.com/textlint-ja/textlint-rule-preset-japanese)
 - [textlint-rule-preset-jtf-style](https://github.com/textlint-ja/textlint-rule-preset-JTF-style)
 - [textlint-rule-preset-ja-technical-writing](https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing)
-- [textlint-rule-preset-ja-spacing](https://github.com/textlint-ja/textlint-rule-preset-ja-spacing)
 - [textlint-rule-ja-no-abusage](https://github.com/textlint-ja/textlint-rule-ja-no-abusage)
 - [textlint-rule-prefer-tari-tari](https://github.com/textlint-ja/textlint-rule-prefer-tari-tari)
 - [textlint-rule-preset-ai-writing](https://github.com/textlint-ja/textlint-rule-preset-ai-writing)

@@ -99,22 +99,6 @@ module.exports = {
       'ja-unnatural-alphabet': true,
       'no-unmatched-pair': true
     },
-    'preset-ja-spacing': {
-      'ja-space-between-half-and-full-width': false,
-      'ja-no-space-between-full-width': true,
-      'ja-nakaguro-or-halfwidth-space-between-katakana': true,
-      'ja-no-space-around-parentheses': true,
-      'ja-space-after-exclamation': true,
-      'ja-space-after-question': true,
-      'ja-space-around-code': {
-        before: true,
-        after: true
-      },
-      'ja-space-around-link': {
-        before: true,
-        after: true
-      }
-    },
     'ja-no-abusage': {
       allow: []
     },

@@ -20,7 +20,6 @@
 - preset-japanese: 日本語の基本的な文法チェック
 - preset-jtf-style: JTF日本語標準スタイルガイド準拠
 - preset-ja-technical-writing: 技術文書向けルール
-- preset-ja-spacing: 日本語のスペーシングルール
 - ja-no-abusage: よくある日本語の誤用検出
 - prefer-tari-tari: 「〜たり〜たり」の正しい使用
 - preset-ai-writing: AI生成文章の検出と改善

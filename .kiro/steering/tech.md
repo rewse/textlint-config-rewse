@@ -21,7 +21,6 @@
 - textlint-rule-preset-japanese
 - textlint-rule-preset-jtf-style
 - textlint-rule-preset-ja-technical-writing
-- textlint-rule-preset-ja-spacing
 - textlint-rule-ja-no-abusage
 - textlint-rule-prefer-tari-tari
 - textlint-rule-preset-ai-writing
