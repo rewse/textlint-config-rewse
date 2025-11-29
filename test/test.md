@@ -40,9 +40,9 @@ Good Morningと挨拶する。
 
 #### NGケース
 
-<!-- textlint-disable max-ten -->
+<!-- textlint-disable japanese/max-ten -->
 これは文章で、読点が、4つ以上、使われている、例です。
-<!-- textlint-enable max-ten -->
+<!-- textlint-enable japanese/max-ten -->
 
 ### no-doubled-joshi（二重助詞）
 
@@ -52,9 +52,9 @@ Good Morningと挨拶する。
 
 #### NGケース
 
-<!-- textlint-disable no-doubled-joshi -->
+<!-- textlint-disable japanese/no-doubled-joshi,jtf-style/1.1.1.本文 -->
 私は彼は好きだ。
-<!-- textlint-enable no-doubled-joshi -->
+<!-- textlint-enable japanese/no-doubled-joshi,jtf-style/1.1.1.本文 -->
 
 ### no-dropping-the-ra（ら抜き言葉）
 
@@ -65,10 +65,10 @@ Good Morningと挨拶する。
 
 #### NGケース
 
-<!-- textlint-disable no-dropping-the-ra -->
+<!-- textlint-disable japanese/no-dropping-the-ra -->
 これは食べれる。
 見れる景色が素晴らしい。
-<!-- textlint-enable no-dropping-the-ra -->
+<!-- textlint-enable japanese/no-dropping-the-ra -->
 
 ### sentence-length（文の長さ）
 
@@ -78,9 +78,9 @@ Good Morningと挨拶する。
 
 #### NGケース
 
-<!-- textlint-disable sentence-length -->
+<!-- textlint-disable japanese/sentence-length,japanese/max-ten,ja-technical-writing/sentence-length,ja-technical-writing/max-ten -->
 これは非常に長い文章で、読点や接続詞を使って延々と続けられており、読者にとって理解しづらく、また途中で何を言いたいのか分からなくなってしまうような、避けるべき文章の典型的な例であり、このような文章は分割することが推奨されます。
-<!-- textlint-enable sentence-length -->
+<!-- textlint-enable japanese/sentence-length,japanese/max-ten,ja-technical-writing/sentence-length,ja-technical-writing/max-ten -->
 
 ## preset-jtf-style
 
@@ -90,23 +90,11 @@ Good Morningと挨拶する。
 
 これは文章です。正しい句読点を使用しています。
 
-#### NGケース
-
-<!-- textlint-disable 1.2.1.句点(。)と読点(、) -->
-これは文章です.正しい句読点を使用していません,
-<!-- textlint-enable 1.2.1.句点(。)と読点(、) -->
-
 ### カタカナの長音
 
 #### OKケース
 
 コンピューター、サーバー、ユーザー
-
-#### NGケース
-
-<!-- textlint-disable 2.1.6.カタカナの長音 -->
-コンピュータ、サーバ、ユーザ
-<!-- textlint-enable 2.1.6.カタカナの長音 -->
 
 ## preset-ja-technical-writing
 
@@ -118,9 +106,9 @@ Good Morningと挨拶する。
 
 #### NGケース
 
-<!-- textlint-disable max-kanji-continuous-len -->
+<!-- textlint-disable ja-technical-writing/max-kanji-continuous-len -->
 此文章漢字多用。
-<!-- textlint-enable max-kanji-continuous-len -->
+<!-- textlint-enable ja-technical-writing/max-kanji-continuous-len -->
 
 ### ja-no-successive-word（連続する単語）
 
@@ -130,9 +118,9 @@ Good Morningと挨拶する。
 
 #### NGケース
 
-<!-- textlint-disable ja-no-successive-word -->
+<!-- textlint-disable ja-technical-writing/ja-no-successive-word -->
 これはは間違った文章です。
-<!-- textlint-enable ja-no-successive-word -->
+<!-- textlint-enable ja-technical-writing/ja-no-successive-word -->
 
 ### ja-unnatural-alphabet（不自然なアルファベット）
 
@@ -142,9 +130,9 @@ Good Morningと挨拶する。
 
 #### NGケース
 
-<!-- textlint-disable ja-unnatural-alphabet -->
+<!-- textlint-disable ja-technical-writing/ja-unnatural-alphabet,jtf-style/2.1.9.アルファベット -->
 これはＡＰＩです。
-<!-- textlint-enable ja-unnatural-alphabet -->
+<!-- textlint-enable ja-technical-writing/ja-unnatural-alphabet,jtf-style/2.1.9.アルファベット -->
 
 ## ja-no-abusage（よくある誤用）
 
@@ -156,11 +144,11 @@ Good Morningと挨拶する。
 
 ### NGケース
 
-<!-- textlint-disable ja-no-abusage -->
+<!-- textlint-disable ja-technical-writing/ja-no-abusage,ja-no-abusage -->
 設定を適応する。
 値を返却する。
 例外を補足する。
-<!-- textlint-enable ja-no-abusage -->
+<!-- textlint-enable ja-technical-writing/ja-no-abusage,ja-no-abusage -->
 
 ## prefer-tari-tari
 
@@ -187,10 +175,10 @@ Good Morningと挨拶する。
 
 #### NGケース
 
-<!-- textlint-disable no-ai-list-formatting -->
+<!-- textlint-disable ai-writing/no-ai-list-formatting,ai-writing/no-ai-emphasis-patterns,ja-technical-writing/no-mix-dearu-desumasu,ja-space-around-phrase -->
 - **重要**: これは重要な項目です
 - ✅ 完了した項目
-<!-- textlint-enable no-ai-list-formatting -->
+<!-- textlint-enable ai-writing/no-ai-list-formatting,ai-writing/no-ai-emphasis-patterns,ja-technical-writing/no-mix-dearu-desumasu,ja-space-around-phrase -->
 
 ### no-ai-hype-expressions
 
@@ -201,10 +189,10 @@ Good Morningと挨拶する。
 
 #### NGケース
 
-<!-- textlint-disable no-ai-hype-expressions -->
+<!-- textlint-disable ai-writing/no-ai-hype-expressions -->
 革命的な技術で業界を変えます。
 究極のパフォーマンスを実現します。
-<!-- textlint-enable no-ai-hype-expressions -->
+<!-- textlint-enable ai-writing/no-ai-hype-expressions -->
 
 ### no-ai-emphasis-patterns
 
@@ -214,6 +202,6 @@ Good Morningと挨拶する。
 
 #### NGケース
 
-<!-- textlint-disable no-ai-emphasis-patterns -->
+<!-- textlint-disable ai-writing/no-ai-emphasis-patterns -->
 これは**非常に**重要な項目です。
-<!-- textlint-enable no-ai-emphasis-patterns -->
+<!-- textlint-enable ai-writing/no-ai-emphasis-patterns -->
