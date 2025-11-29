@@ -1,6 +1,6 @@
 {
   "name": "textlint-config-rewse",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "rewse's shareable textlint config for Japanese technical documents with comprehensive rules",
   "main": "index.js",
   "type": "commonjs",
