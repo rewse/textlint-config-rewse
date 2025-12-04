@@ -34,9 +34,6 @@ jobs:
           SAFE_CHAIN_MINIMUM_PACKAGE_AGE_HOURS: 96
         run: npm ci
 
-      - name: Build
-        run: npm run build
-
       - name: Test
         run: npm test
 
