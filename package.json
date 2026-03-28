@@ -32,6 +32,9 @@
     "README.md",
     "LICENSE"
   ],
+  "overrides": {
+    "path-to-regexp": ">=8.4.0"
+  },
   "engines": {
     "node": ">=20.0.0"
   },
