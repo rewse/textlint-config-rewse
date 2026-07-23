@@ -9,6 +9,7 @@ on:
       - main
   schedule:
     - cron: "11 11 * * 3"  # Every Wednesday at 20:11 JST (11:11 UTC)
+  workflow_dispatch:
 
 permissions:
   actions: read
@@ -34,9 +35,7 @@ jobs:
         run: curl -fsSL https://raw.githubusercontent.com/AikidoSec/safe-chain/main/install-scripts/install-safe-chain.sh | sh -s -- --ci
 
       - name: Install dependencies
-        env:
-          SAFE_CHAIN_MINIMUM_PACKAGE_AGE_HOURS: 96
-        run: npm ci
+        run: npm ci --safe-chain-skip-minimum-package-age
 
       - name: Test
         run: npm test
