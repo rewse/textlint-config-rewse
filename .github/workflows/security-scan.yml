@@ -31,8 +31,26 @@ jobs:
       - name: Install latest npm
         run: npm install -g npm@latest
 
+      # Pinned to a release URL with a checksum so a tampered or truncated
+      # installer cannot run; the release pipeline bakes the matching binary
+      # version and its checksum into that script. Each command is its own
+      # line because a piped `curl | sh` hides a download failure and leaves
+      # npm unshimmed, which then rejects the --safe-chain-* flag below.
+      # SAFE_CHAIN_VERSION is deliberately not used: the installer treats it
+      # as a deprecated legacy switch and downloads a binary name that no
+      # longer exists.
       - name: Setup Aikido Safe Chain
-        run: curl -fsSL https://raw.githubusercontent.com/AikidoSec/safe-chain/main/install-scripts/install-safe-chain.sh | sh -s -- --ci
+        env:
+          INSTALLER_SHA256: 'de0565e3d6346407a604e84e639e95fea8758748063da2216bbfdca5feda5dd2'
+          INSTALLER_VERSION: '1.5.15'
+        run: |
+          curl -fsSL --retry 3 --retry-all-errors \
+            "https://github.com/AikidoSec/safe-chain/releases/download/${INSTALLER_VERSION}/install-safe-chain.sh" \
+            -o /tmp/install-safe-chain.sh
+          echo "${INSTALLER_SHA256}  /tmp/install-safe-chain.sh" | sha256sum -c -
+          sh /tmp/install-safe-chain.sh --ci
+          rm /tmp/install-safe-chain.sh
+          npm safe-chain-verify
 
       - name: Install dependencies
         run: npm ci --safe-chain-skip-minimum-package-age
