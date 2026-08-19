@@ -50,7 +50,11 @@ jobs:
           echo "${INSTALLER_SHA256}  /tmp/install-safe-chain.sh" | sha256sum -c -
           sh /tmp/install-safe-chain.sh --ci
           rm /tmp/install-safe-chain.sh
-          npm safe-chain-verify
+
+      # A separate step because the installer publishes its shim directory
+      # through GITHUB_PATH, which only takes effect in later steps.
+      - name: Verify Aikido Safe Chain
+        run: npm safe-chain-verify
 
       - name: Install dependencies
         run: npm ci --safe-chain-skip-minimum-package-age
