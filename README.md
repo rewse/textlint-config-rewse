@@ -1,161 +1,110 @@
 # textlint-config-rewse
 
-rewse用の日本語技術文書向け共有可能なtextlint設定パッケージ
+日本語の技術文書向けに、文法、表記、スペース、AI らしい文章表現をまとめてチェックするtextlintの共有設定です。
 
-## 概要
+## 必要環境
 
-rewseが日本語の技術文書やドキュメントを書く際に、一貫性のある品質の高い文章を維持するための包括的なルールセットを提供します。
-
-## 特徴
-
-- 複数のtextlintプリセットを統合した設定
-- 日本語の文法、スタイル、スペーシングルールを包括的にカバー
-- AI生成文章の検出と改善提案
-- フィルタールールによる柔軟な除外設定
+- Node.js 20 以上
+- textlint 15 以上
+- npm 7 以上（ピア依存を自動でインストールするため）
 
 ## インストール
 
+textlint本体と各ルールはピア依存です。npm 7 以降では、各ルールもプロジェクト直下に自動でインストールされます。
+
 ```bash
-npm install --save-dev textlint-config-rewse
+npm install --save-dev textlint textlint-config-rewse
 ```
 
 ## 使い方
 
-### CLIで直接指定
+### .textlintrc.js で読み込む
 
-```bash
-# ファイルをチェック
-npx textlint --config textlint-config-rewse README.md
+設定をそのまま使う場合は、プロジェクトのルートに置いた `.textlintrc.js` から読み込みます。textlint は `.textlintrc.js` を `--config` で渡すと正しく読み込めないため、ルートに置いて自動で見つけさせてください。
 
-# ディレクトリをチェック
-npx textlint --config textlint-config-rewse docs/
-
-# 自動修正
-npx textlint --config textlint-config-rewse --fix README.md
+```javascript
+module.exports = require('textlint-config-rewse');
 ```
 
-### 設定ファイルで使用
+一部のルールだけ変える場合は、スプレッド構文で上書きします。
 
-`.textlintrc.json`を作成して、必要なルールのみを有効化：
+```javascript
+const config = require('textlint-config-rewse');
 
-```json
-{
-  "rules": {
-    "ja-space-around-phrase": true,
-    "preset-japanese": true,
-    "preset-ja-technical-writing": {
-      "sentence-length": {
-        "max": 100
-      }
+module.exports = {
+  ...config,
+  rules: {
+    ...config.rules,
+    'preset-ja-technical-writing': {
+      ...config.rules['preset-ja-technical-writing'],
+      'sentence-length': { max: 150 }
     }
   }
-}
+};
 ```
 
-設定ファイルを作成した場合は、`--config`オプションなしで実行できます：
+### 実行
 
 ```bash
-npx textlint README.md
+npx textlint README.md docs/
+npx textlint --fix README.md
 ```
 
-## 含まれるルールセット
+## 含まれるルール
 
-### preset-japanese
+| ルール | 内容 |
+| --- | --- |
+| [preset-ai-writing](https://github.com/textlint-ja/textlint-rule-preset-ai-writing) | 機械的なリスト表記、誇張表現、過剰な強調など、AI生成文章に多いパターンを検出 |
+| [preset-ja-technical-writing](https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing) | 文の長さ、漢字の連続、冗長な表現など、技術文書向けのルール |
+| [preset-japanese](https://github.com/textlint-ja/textlint-rule-preset-japanese) | 読点の数、二重助詞、ら抜き言葉、敬体と常体の混在など、日本語の基本的なルール |
+| [ja-no-abusage](https://github.com/textlint-ja/textlint-rule-ja-no-abusage) | 「適応」と「適用」のような、よくある誤用を検出 |
+| [ja-space-around-phrase](https://github.com/rewse/textlint-rule-ja-space-around-phrase) | 全角文字と半角文字列の間のスペースを制御 |
+| [prefer-tari-tari](https://github.com/textlint-ja/textlint-rule-prefer-tari-tari) | 「〜たり〜たりする」の片方が欠けた表現を検出 |
 
-日本語の基本的な文法チェック
+上流のデフォルトから変えている主な点は次のとおりです。
 
-- 一文で使える読点の数を制限
-- 二重助詞の検出
-- ら抜き言葉の検出
-- 敬体・常体の混在チェック
-
-### preset-jtf-style
-
-JTF日本語標準スタイルガイド準拠
-
-- 句読点の統一
-- 全角・半角の使い分け
-- カタカナ語の表記ルール
-
-### preset-ja-technical-writing
-
-技術文書向けルール
-
-- 文の長さ制限
-- 漢字の連続制限
-- 弱い表現の検出
-- 冗長な表現のチェック
-
-### ja-no-abusage
-
-よくある日本語の誤用検出
-
-- 「適応」と「適用」の誤用
-- 「補足」と「捕捉」の誤用
-
-### prefer-tari-tari
-
-「〜たり〜たり」の正しい使用をチェック
-
-### preset-ai-writing
-
-AI生成文章の検出と改善提案
-
-- 機械的なリスト表現の検出
-- 過度な誇張表現の検出
-- 不自然な強調パターンの検出
+- `sentence-length` の上限を200文字に緩めている
+- `ja-no-mixed-period`、`ja-no-weak-phrase`、`no-exclamation-question-mark` を無効にしている
 
 ### ja-space-around-phrase
 
-全角文字とフレーズ（複数単語の半角文字列）の間のスペースを制御
+半角文字列にスペースが含まれるかどうかで、前後のスペースの有無を決めます。
 
-- スペースを含まない半角文字列（例: `API`, `URL`）と全角文字の間はスペースなし
-- スペースを含む半角文字列（例: `Hello World`, `New York`）と全角文字の間はスペースあり
-
-### カスタマイズ
-
-個別のルールを上書きすることができます。
-
-```json
-{
-  "rules": {
-    "preset-ja-technical-writing": {
-      "sentence-length": {
-        "max": 150
-      },
-      "ja-no-weak-phrase": false
-    }
-  }
-}
+```markdown
+これはAPIです
+これは Hello World です
 ```
 
-## フィルタールール
+`API` のような単語は日本語に溶け込ませ、`Hello World` のようなフレーズはスペースで区切ります。リンク、画像、引用、コード、見出しはチェックしません。
 
-### コメントによる無効化
+## チェックの除外
+
+コメントで範囲を指定して、チェックを止められます。
 
 ```markdown
 <!-- textlint-disable -->
 この部分はチェックされません
 <!-- textlint-enable -->
 
-<!-- textlint-disable rule-name -->
-特定のルールのみ無効化
-<!-- textlint-enable rule-name -->
+<!-- textlint-disable prefer-tari-tari -->
+このルールだけ止めます
+<!-- textlint-enable prefer-tari-tari -->
 ```
 
-### 許可リスト
+特定の語句を常に除外したい場合は、`filters.allowlist.allow` に文字列か `/正規表現/` を追加します。
 
-特定の単語やパターンをチェック対象から除外できます。
+```javascript
+const config = require('textlint-config-rewse');
 
-```json
-{
-  "filters": {
-    "allowlist": {
-      "allow": [
-        "特定の単語",
-        "/正規表現パターン/"
-      ]
-    }
+module.exports = {
+  ...config,
+  filters: {
+    ...config.filters,
+    allowlist: { allow: ['特定の単語', '/正規表現パターン/'] }
   }
-}
+};
 ```
+
+## ライセンス
+
+MIT
