@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "test": "textlint --config test/.textlintrc.json test/test.md",
+    "test": "cd test && textlint test.md",
     "release:patch": "npm version patch && git push && git push --tags",
     "release:minor": "npm version minor && git push && git push --tags",
     "release:major": "npm version major && git push && git push --tags"
@@ -28,7 +28,6 @@
   "homepage": "https://github.com/rewse/textlint-config-rewse#readme",
   "files": [
     "index.js",
-    ".textlintrc.json.sample",
     "README.md",
     "LICENSE"
   ],
