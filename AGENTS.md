@@ -29,3 +29,7 @@ Workflows that run `npm ci` install Aikido Safe Chain first. The release workflo
 When adding or updating a dependency, avoid versions published less than 96 hours ago, read the changelog, and run `osv-scanner --lockfile package-lock.json` and `npm test`. Fix vulnerable transitive dependencies by raising the floor in `overrides` in `package.json`.
 
 Report vulnerabilities in this project through GitHub Security Advisories, not public issues.
+
+## Validation
+
+Before pushing, run `uvx pre-commit run --all-files` and `npm test`, and commit any files the hooks reformat. Stage new files first, because `--all-files` skips untracked files. CI runs the same hooks, and `core.hooksPath` points at git-defender, so `pre-commit install` cannot run them at commit time.
