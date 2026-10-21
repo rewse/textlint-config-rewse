@@ -18,7 +18,7 @@ This rule decides spacing between full-width text and a half-width string by whe
 
 ## Releasing
 
-Versions follow SemVer, where a major bump means a config change that breaks existing users' documents. `npm run release:<patch|minor|major>` bumps the version, commits, tags, and pushes. The `v*` tag triggers `.github/workflows/release.yml`, which tests, creates the GitHub release with git-cliff notes, and publishes to npm through Trusted Publishing, so do not run `npm publish` locally.
+Versions follow SemVer, where a major bump means a config change that breaks existing users' documents. `npm run release:<patch|minor|major>` bumps the version, commits, tags, and pushes. The `v*` tag triggers `.github/workflows/release.yml`, which tests and creates the GitHub release with git-cliff notes in the `release` job, then publishes to npm through Trusted Publishing in the `publish` job, so do not run `npm publish` locally. Keep `npm ci` and every other dependency install out of the `publish` job, because it holds `id-token: write`; the package has no build step, so publishing needs only the checked-out source.
 
 ## Supply-Chain Security
 
