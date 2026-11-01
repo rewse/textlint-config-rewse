@@ -24,7 +24,7 @@ Versions follow SemVer, where a major bump means a config change that breaks exi
 
 Keep `ignore-scripts=true` in `.npmrc`. If a dependency ever needs install scripts, such as a native module, allow that package by name with `@lavamoat/allow-scripts` instead of lifting the setting.
 
-Workflows that run `npm ci` install Aikido Safe Chain first. The release workflow sets `SAFE_CHAIN_MINIMUM_PACKAGE_AGE_HOURS: 96` to block packages published within the last four days; keep that value.
+Workflows that run `npm ci` install Aikido Safe Chain first. The release and test workflows set `SAFE_CHAIN_MINIMUM_PACKAGE_AGE_HOURS: 96` to block packages published within the last four days; keep that value. The Safe Chain job in `dependency-scan.yml` deliberately skips the age check, because it only scans the tree and runs none of it.
 
 When adding or updating a dependency, avoid versions published less than 96 hours ago, read the changelog, and run `osv-scanner --lockfile package-lock.json` and `npm test`. Fix vulnerable transitive dependencies by raising the floor in `overrides` in `package.json`.
 
