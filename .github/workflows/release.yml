@@ -9,16 +9,15 @@ permissions:
   contents: read
 
 jobs:
-  release:
-    name: Release
+  # Tests run in their own read-only job, so dependency code never shares a
+  # runner with the contents: write token of the release job.
+  test:
+    name: Test
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
-          fetch-depth: 0
           persist-credentials: false
 
       - name: Setup Node.js
@@ -39,6 +38,19 @@ jobs:
 
       - name: Test
         run: npm test
+
+  release:
+    name: Release
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
 
       - name: Generate Release Notes
         id: changelog
